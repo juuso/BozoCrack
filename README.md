@@ -1,5 +1,5 @@
 # BozoCrack
-BozoCrack is a depressingly effective MD5 password hash cracker with almost zero CPU/GPU load. Instead of rainbow tables, dictionaries, or brute force, BozoCrack simply *finds* the plaintext password. Specifically, it googles the MD5 hash and hopes the plaintext appears somewhere on the first page of results.
+BozoCrack is a depressingly effective  password hash cracker with almost zero CPU/GPU load. Instead of rainbow tables, dictionaries, or brute force, BozoCrack simply *finds* the plaintext password. Specifically, it googles the hash and hopes the plaintext appears somewhere on the first page of results.
 
 It works way better than it ever should.
 
@@ -9,7 +9,13 @@ Basic usage:
 
     $ ruby bozocrack.rb my_md5_hashes.txt
 
-The input file has no specified format. BozoCrack automatically picks up strings that look like MD5 hashes. A single line shouldn't contain more than one hash.
+The input file has no specified format. BozoCrack automatically picks up strings that look like hashes. A single line shouldn't contain more than one hash.
+
+Advanced usage:
+
+  $ ruby bozocrack.rb --hash sha1 my_sha1_hashes.txt
+  
+hash can be passed md5 (default), sha1 or sha2 
 
 Example with output:
 
