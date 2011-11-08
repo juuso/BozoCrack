@@ -4,28 +4,29 @@ require 'net/http'
 class BozoCrack
 
   def initialize(filename)
-    @hashes = Array.new
+    @hashes = Hash.new
     @cache = Hash.new
 
     File.new(filename).each_line do |line|
-      if m = line.chomp.match(/\b([a-fA-F0-9]{32})\b/)
-        @hashes << m[1]
+      if m = line.chomp.match(/\b(.*):([a-f0-9]{32})\b/i)
+        @hashes[m[1]] = m[2].downcase
       end
     end
-    @hashes.uniq!
     puts "Loaded #{@hashes.count} unique hashes"
 
     load_cache
   end
 
   def crack
-    @hashes.each do |hash|
+    puts "%16s | %16s | %32s" % %w(User Password Hash)
+    puts "-" * 72
+    @hashes.each do |user, hash|
       if plaintext = @cache[hash]
-        puts "#{hash}:#{plaintext}"
+        puts "%16s | %16s | %32s" % [user, plaintext, hash]
         next
       end
       if plaintext = crack_single_hash(hash)
-        puts "#{hash}:#{plaintext}"
+        puts "%16s | %16s| %32s" % [user, plaintext, hash]
         append_to_cache(hash, plaintext)
       end
       sleep 1
@@ -35,19 +36,14 @@ class BozoCrack
   private
 
   def crack_single_hash(hash)
-    response = Net::HTTP.get URI("http://www.google.com/search?q=#{hash}")
+    response = Net::HTTP.get(URI("http://www.google.com/search?q=#{hash}"))
     wordlist = response.split(/\s+/)
-    if plaintext = dictionary_attack(hash, wordlist)
-      return plaintext
-    end
-    nil
+    dictionary_attack(hash, wordlist)
   end
 
   def dictionary_attack(hash, wordlist)
     wordlist.each do |word|
-      if Digest::MD5.hexdigest(word) == hash.downcase
-        return word
-      end
+      return word if Digest::MD5.hexdigest(word) == hash
     end
     nil
   end
@@ -55,7 +51,7 @@ class BozoCrack
   def load_cache(filename = "cache")
     if File.file? filename
       File.new(filename).each_line do |line|
-        if m = line.chomp.match(/^([a-fA-F0-9]{32}):(.*)$/)
+        if m = line.chomp.match(/^([a-f0-9]{32}):(.*)$/i)
           @cache[m[1]] = m[2]
         end
       end
