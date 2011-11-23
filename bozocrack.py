@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import hashlib
 import re
 from urllib import FancyURLopener
@@ -13,11 +14,11 @@ class BozoCrack(object):
         self.cache = {}
         
         with open(filename, 'r') as f:
-            hashes = [line.replace('\n','') for line in f if hash_regex.match(line)]
+            hashes = [x for line in f if hash_regex.match(line) for x in hash_regex.findall(line.replace('\n',''))]
 
         self.hashes = sorted(list(set(hashes)))
 
-        print "Loaded {count} unique hashes".format(count = len(hashes))
+        print "Loaded {count} unique hashes".format(count = len(self.hashes))
 
         self.load_cache()
                                                      
@@ -50,7 +51,7 @@ class BozoCrack(object):
         myopener = MyOpener()
         response = myopener.open("http://www.google.com/search?q={hash}".format(hash=h))
         
-        wordlist = response.read().replace('.',' ').split(' ')
+        wordlist = response.read().replace('.',' ').replace(':',' ').replace('?','').split(' ')
         plaintext = self.dictionary_attack(h, set(wordlist))
         
         return plaintext
