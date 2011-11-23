@@ -19,6 +19,9 @@ def dictionary_attack(h, wordlist):
 
     return None
 
+def format_it(hash, plaintext):
+    return "{hash}:{plaintext}".format(hash=hash, plaintext=plaintext)
+
 def crack_single_hash(h):
     myopener = MyOpener()
     response = myopener.open("http://www.google.com/search?q={hash}".format(hash=h))
@@ -45,13 +48,13 @@ class BozoCrack(object):
     def crack(self):
         for h in self.hashes:
             if h in self.cache:
-                print "{hash}:{plaintext}".format(hash=h, plaintext=self.cache[h])
+                print format_it(h, self.cache[h])
                 continue
 
             plaintext = crack_single_hash(h)
 
             if plaintext:
-                print "{hash}:{plaintext}".format(hash=h, plaintext=plaintext)
+                print format_it(h, plaintext)
                 self.cache[h] = plaintext
                 self.append_to_cache(h, plaintext)
             
@@ -63,7 +66,7 @@ class BozoCrack(object):
 
     def append_to_cache(self, h, plaintext, filename='cache'):
         with open(filename, 'a+') as c:
-            c.write("{hash}:{plaintext}\n".format(hash=h, plaintext=plaintext))
+            c.write(format_it(hash=h, plaintext=plaintext))
 
 if __name__ == '__main__':
     
@@ -73,7 +76,7 @@ if __name__ == '__main__':
             plaintext = crack_single_hash(target)
 
             if plaintext:
-                print "{hash}:{plaintext}".format(hash=target, plaintext=plaintext)
+                print format_it(hash=target, plaintext=plaintext)
         else:
             BozoCrack(target).crack()
     else:
