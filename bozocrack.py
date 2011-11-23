@@ -65,9 +65,10 @@ class BozoCrack(object):
         with open(filename, 'a+') as c:
             c.write("{hash}:{plaintext}\n".format(hash=h, plaintext=plaintext))
 
-if __name__ == 'main':
-    if len(sys.argv) == 1:
-        BozoCrack(sys.argv[0]).crack()
+if __name__ == '__main__':
+    
+    if len(sys.argv) == 2:
+        BozoCrack(sys.argv[1]).crack()
     else:
         print "Usage example: python bozocrack.py file_with_md5_hashes.txt"
     
