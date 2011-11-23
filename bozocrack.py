@@ -38,20 +38,20 @@ class BozoCrack(object):
 
         self.hashes = sorted(list(set(hashes)))
 
-        print "Loaded {count} unique hashes".format(count = len(self.hashes))
+        print "Loaded {count} unique hashes".format(count=len(self.hashes))
 
         self.load_cache()
                                                      
     def crack(self):
         for h in self.hashes:
             if h in self.cache:
-                print "{hash}:{plaintext}".format(hash = h, plaintext = self.cache[h])
+                print "{hash}:{plaintext}".format(hash=h, plaintext=self.cache[h])
                 continue
 
             plaintext = crack_single_hash(h)
 
             if plaintext:
-                print "{hash}:{plaintext}".format(hash = h, plaintext=plaintext)
+                print "{hash}:{plaintext}".format(hash=h, plaintext=plaintext)
                 self.cache[h] = plaintext
                 self.append_to_cache(h, plaintext)
             
