@@ -37,7 +37,7 @@ class BozoCrack(object):
         self.cache = {}
         
         with open(filename, 'r') as f:
-            hashes = [x for line in f if HASH_REGEX.match(line) for x in HASH_REGEX.findall(line.replace('\n',''))]
+            hashes = [x.lower() for line in f if HASH_REGEX.match(line) for x in HASH_REGEX.findall(line.replace('\n',''))]
 
         self.hashes = sorted(list(set(hashes)))
 
