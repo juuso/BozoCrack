@@ -35,7 +35,17 @@ class BozoCrack
   private
 
   def crack_single_hash(hash)
-    response = Net::HTTP.get URI("http://www.google.com/search?q=#{hash}")
+    if plaintext = crack_single_hash_with_website(hash, "http://www.google.com/search?q=#{hash}")
+      return plaintext
+    end
+    if plaintext = crack_single_hash_with_website(hash, "http://www.google.com/search?q=md5+#{hash}")
+      return plaintext
+    end
+    nil
+  end
+
+  def crack_single_hash_with_website(hash, url)
+    response = Net::HTTP.get URI(url)
     wordlist = response.split(/\s+/)
     if plaintext = dictionary_attack(hash, wordlist)
       return plaintext
@@ -47,6 +57,12 @@ class BozoCrack
     wordlist.each do |word|
       if Digest::MD5.hexdigest(word) == hash.downcase
         return word
+      end
+      sub_wordlist = word.split(/[^a-zA-Z0-9]+/)
+      if (sub_wordlist.size > 1)
+        if plaintext = dictionary_attack(hash, sub_wordlist)
+          return plaintext
+        end
       end
     end
     nil
