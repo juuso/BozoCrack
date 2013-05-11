@@ -21,17 +21,21 @@ class BozoCrack
   end
 
   def crack
+    crackedcount = 0
     @hashes.each do |hash|
       if plaintext = @cache[hash]
         puts "#{hash}:#{plaintext}"
-        next
+        crackedcount += 1
+	next
       end
       if plaintext = crack_single_hash(hash)
         puts "#{hash}:#{plaintext}"
+	crackedcount += 1
         append_to_cache(hash, plaintext)
       end
       sleep 1
     end
+  puts "Cracked #{crackedcount}/#{@hashes.count} Hashes"
   end
 
   private
