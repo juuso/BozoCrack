@@ -34,7 +34,7 @@ To show just how bad an idea it is to use plain MD5 as a password hashing mechan
 
 
 ## Who?
-BozoCrack was originally written by [Juuso Salonen](http://twitter.com/juusosalonen), the guy behind [Radio Silence](http://radiosilenceapp.com) and [Private Eye](http://radiosilenceapp.com/private-eye). BozoCrack was rewritten in Python by [Henrique Pereira](http://twitter.com/ikkebr), the guy behind [Ruby Brasil](http://www.ruby-br.com.br).
+BozoCrack was originally written by [Juuso Salonen](http://twitter.com/juusosalonen), the guy behind [Radio Silence](http://radiosilenceapp.com) and [Private Eye](http://radiosilenceapp.com/private-eye). BozoCrack was rewritten in Python by [Henrique Pereira](http://twitter.com/ikkebr).
 
 
 ## License
