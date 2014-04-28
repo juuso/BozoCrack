@@ -72,13 +72,13 @@ class BozoCrack(object):
 if __name__ == '__main__':
 
     parser = OptionParser()
-    parser.add_option('-s', '--single', metavar='MD5HASH', dest='single', default=False)
-    parser.add_option('-f', '--file', metavar='HASHFILE', dest='target',)
+    parser.add_option('-s', '--single', metavar='MD5HASH', help='cracks a single hash', dest='single', default=False)
+    parser.add_option('-f', '--file', metavar='HASHFILE', help='cracks multiple hashes on a file', dest='target',)
 
     (options, args) = parser.parse_args()
     
     if not options.single and not options.target:
-        parser.error("please select -s or -t")
+        parser.error("please select -s or -f")
     elif options.single:
         plaintext = crack_single_hash(options.single)
 
