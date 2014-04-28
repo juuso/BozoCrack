@@ -7,17 +7,17 @@ It works way better than it ever should.
 ## How?
 Basic usage:
 
-    $ python bozocrack.py my_md5_hashes.txt
+    $ python bozocrack.py -f my_md5_hashes.txt
 
 Or:
 
-    $ python bozocrack.py fcf1eed8596699624167416a1e7e122e
+    $ python bozocrack.py -s fcf1eed8596699624167416a1e7e122e
 
 The input file has no specified format. BozoCrack automatically picks up strings that look like MD5 hashes. A single line shouldn't contain more than one hash.
 
 Example with output:
 
-    $ python bozocrack.py example.txt
+    $ python bozocrack.py -f example.txt
     Loaded 5 unique hashes
     fcf1eed8596699624167416a1e7e122e:octopus
     bed128365216c019988915ed3add75fb:passw0rd
@@ -25,7 +25,7 @@ Example with output:
     dfd8c10c1b9b58c8bf102225ae3be9eb:12081977
     ede6b50e7b5826fe48fc1f0fe772c48f:1q2w3e4r5t6y
 
-    $ python bozocrack.py fcf1eed8596699624167416a1e7e122e
+    $ python bozocrack.py -s fcf1eed8596699624167416a1e7e122e
     fcf1eed8596699624167416a1e7e122e:octopus
 
 
