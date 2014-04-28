@@ -3,6 +3,7 @@ import hashlib
 import re
 from urllib import FancyURLopener
 import sys
+from optparse import OptionParser
 
 HASH_REGEX = re.compile("([a-fA-F0-9]{32})")
 
@@ -69,21 +70,19 @@ class BozoCrack(object):
             c.write(format_it(hash=h, plaintext=plaintext))
 
 if __name__ == '__main__':
-    
-    if len(sys.argv) == 2:
-        target = sys.argv[1]
-        if HASH_REGEX.match(target):
-            plaintext = crack_single_hash(target)
 
-            if plaintext:
-                print format_it(hash=target, plaintext=plaintext)
-        else:
-            BozoCrack(target).crack()
+    parser = OptionParser()
+    parser.add_option('-s', '--single', metavar='MD5HASH', dest='single', default=False)
+    parser.add_option('-f', '--file', metavar='HASHFILE', dest='target',)
+
+    (options, args) = parser.parse_args()
+    
+    if not options.single and not options.target:
+        parser.error("please select -s or -t")
+    elif options.single:
+        plaintext = crack_single_hash(options.single)
+
+        if plaintext:
+            print format_it(hash=options.single, plaintext=plaintext)
     else:
-        print """Usage example: 
-\tpython bozocrack.py file_with_md5_hashes.txt
-OR:
-\tpython bozocrack.py fcf1eed8596699624167416a1e7e122e
-
-"""
-    
+        BozoCrack(options.target).crack()
