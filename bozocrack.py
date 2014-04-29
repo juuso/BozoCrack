@@ -14,10 +14,7 @@ class MyOpener(FancyURLopener):
 
 def dictionary_attack(h, wordlist):
     for word in wordlist:
-        m = hashlib.md5()
-        m.update(word)
-
-        if m.hexdigest() == h:
+        if hashlib.md5(word).hexdigest() == h:
             return word
 
     return None
@@ -43,17 +40,16 @@ class BozoCrack(object):
 
     def __init__(self, filename, *args, **kwargs):
         self.hashes = []
-        self.cache = {}
 
         with open(filename, 'r') as f:
-            hashes = [x.lower() for line in f if HASH_REGEX.match(line)
-                      for x in HASH_REGEX.findall(line.replace('\n', ''))]
+            hashes = [h.lower() for line in f if HASH_REGEX.match(line)
+                      for h in HASH_REGEX.findall(line.replace('\n', ''))]
 
-        self.hashes = sorted(list(set(hashes)))
+        self.hashes = sorted(set(hashes))
 
         print "Loaded {count} unique hashes".format(count=len(self.hashes))
 
-        self.load_cache()
+        self.cache = self.load_cache()
 
     def crack(self):
         for h in self.hashes:
@@ -69,13 +65,15 @@ class BozoCrack(object):
                 self.append_to_cache(h, plaintext)
 
     def load_cache(self, filename='cache'):
-        with open(filename, 'a+') as c:
+        cache = {}
+        with open(filename, 'r') as c:
             for line in c:
-                line = line.replace('\n', '').split(':')
-                self.cache[line[0]] = line[1]
+                hash, plaintext = line.replace('\n', '').split(':', 1)
+                cache[hash] = plaintext
+        return cache
 
     def append_to_cache(self, h, plaintext, filename='cache'):
-        with open(filename, 'a+') as c:
+        with open(filename, 'a') as c:
             c.write(format_it(hash=h, plaintext=plaintext))
 
 if __name__ == '__main__':
@@ -86,7 +84,7 @@ if __name__ == '__main__':
     parser.add_option('-f', '--file', metavar='HASHFILE',
                       help='cracks multiple hashes on a file', dest='target',)
 
-    (options, args) = parser.parse_args()
+    options, args = parser.parse_args()
 
     if not options.single and not options.target:
         parser.error("please select -s or -f")
