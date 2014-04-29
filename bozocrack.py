@@ -73,8 +73,8 @@ class BozoCrack(object):
         return cache
 
     def append_to_cache(self, h, plaintext, filename='cache'):
-        with open(filename, 'a') as c:
-            c.write(format_it(hash=h, plaintext=plaintext))
+        with open(filename, 'a+') as c:
+            c.write(format_it(hash=h, plaintext=plaintext)+"\n")
 
 if __name__ == '__main__':
 
