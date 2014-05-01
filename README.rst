@@ -5,7 +5,7 @@ PyBozoCrack
 .. image:: https://badge.fury.io/py/pybozocrack.png
     :target: http://badge.fury.io/py/pybozocrack
     
-.. image:: https://travis-ci.org/ikkebr/pybozocrack.png?branch=master
+.. image:: https://travis-ci.org/ikkebr/pybozocrack.png?branch=pypi
         :target: https://travis-ci.org/ikkebr/pybozocrack
 
 .. image:: https://pypip.in/d/pybozocrack/badge.png
