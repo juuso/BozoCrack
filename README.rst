@@ -7,6 +7,8 @@ PyBozoCrack
     
 .. image:: https://travis-ci.org/ikkebr/PyBozoCrack.svg
    :target: https://travis-ci.org/ikkebr/PyBozoCrack
+   
+.. image:: https://coveralls.io/repos/ikkebr/PyBozoCrack/badge.png?branch=master :target: https://coveralls.io/r/ikkebr/PyBozoCrack?branch=master
 
 .. image:: https://pypip.in/d/pybozocrack/badge.png
         :target: https://pypi.python.org/pypi/pybozocrack
