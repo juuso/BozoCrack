@@ -65,6 +65,6 @@ To show just how bad an idea it is to use plain MD5 as a password hashing mechan
 
 Who?
 ----
-BozoCrack was originally written by [Juuso Salonen](http://twitter.com/juusosalonen).
+BozoCrack was originally written by Juuso Salonen (http://twitter.com/juusosalonen).
 
-PyBozoCrack was rewritten in Python by [Henrique Pereira](http://twitter.com/ikkebr).
+PyBozoCrack was rewritten in Python by Henrique Pereira (http://twitter.com/ikkebr).
