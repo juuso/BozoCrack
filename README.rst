@@ -3,15 +3,16 @@ PyBozoCrack
 ===============================
 
 .. image:: https://badge.fury.io/py/pybozocrack.png
-    :target: http://badge.fury.io/py/pybozocrack
+   :target: http://badge.fury.io/py/pybozocrack
     
 .. image:: https://travis-ci.org/ikkebr/PyBozoCrack.svg
    :target: https://travis-ci.org/ikkebr/PyBozoCrack
    
-.. image:: https://coveralls.io/repos/ikkebr/PyBozoCrack/badge.png?branch=master :target: https://coveralls.io/r/ikkebr/PyBozoCrack?branch=master
+.. image:: https://coveralls.io/repos/ikkebr/PyBozoCrack/badge.png 
+   :target: https://coveralls.io/r/ikkebr/PyBozoCrack
 
 .. image:: https://pypip.in/d/pybozocrack/badge.png
-        :target: https://pypi.python.org/pypi/pybozocrack
+   :target: https://pypi.python.org/pypi/pybozocrack
 
 
 PyBozoCrack is a depressingly effective MD5 password hash cracker with almost zero CPU/GPU load written in Python. Instead of rainbow tables, dictionaries, or brute force, PyBozoCrack simply *finds* the plaintext password. Specifically, it googles the MD5 hash and hopes the plaintext appears somewhere on the first page of results.
