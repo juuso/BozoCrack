@@ -22,6 +22,10 @@ class TestPybozocrack(unittest.TestCase):
         file = open('test', 'w')
         file.write('fcf1eed8596699624167416a1e7e122e\nbed128365216c019988915ed3add75fb')
         file.close()
+		
+        file = open('cache', 'w')
+        file.write('1:2\n')
+        file.close()
 
         self.cracker = pybozocrack.BozoCrack('test')
 
@@ -33,8 +37,13 @@ class TestPybozocrack(unittest.TestCase):
         self.assertEqual(self.cracker.load_cache('empty'), {})
 
     def test_append_to_cache(self):
-        self.cracker.append_to_cache('1', '2', 'testcache')
-        self.assertEqual(self.cracker.load_cache('testcache'), {'1': '2'})
+        self.cracker.append_to_cache('1', '2', 'cache')
+        self.assertEqual(self.cracker.load_cache('cache'), {'1': '2'})
+		
+    def test_crack(self):
+        self.cracker.hashes = [self.hash,]
+        self.cracker.crack()
+        self.assertEqual( self.cracker.cache[self.cracker.hashes[0]], self.plaintext )
         
     def test_dictionary_attack_known_hash(self):
         self.assertEqual(pybozocrack.dictionary_attack(self.hash, ['zebra', '123', self.plaintext]), self.plaintext)
