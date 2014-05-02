@@ -66,7 +66,7 @@ class BozoCrack(object):
 
     def load_cache(self, filename='cache'):
         cache = {}
-        with open(filename, 'a+') as c:
+        with open(filename, 'r') as c:
             for line in c:
                 hash, plaintext = line.replace('\n', '').split(':', 1)
                 cache[hash] = plaintext
