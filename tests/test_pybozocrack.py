@@ -19,6 +19,19 @@ class TestPybozocrack(unittest.TestCase):
         self.hash = "d0763edaa9d9bd2a9516280e9044d885"
         self.plaintext = "monkey"
 
+        file = open('test', 'w')
+        file.write('fcf1eed8596699624167416a1e7e122e\nbed128365216c019988915ed3add75fb')
+        file.close()
+
+        self.cracker = BozoCrack('test')
+
+
+    def test_loaded_hashes(self):
+        self.assertEqual(len(self.cracker.hashes), 2)
+
+    def test_load_empty_cache(self):
+        self.assertEqual(self.load_cache(), {})
+
     def test_dictionary_attack_known_hash(self):
         self.assertEqual(pybozocrack.dictionary_attack(self.hash, ['zebra', '123', self.plaintext]), self.plaintext)
 		
