@@ -33,8 +33,8 @@ class TestPybozocrack(unittest.TestCase):
         self.assertEqual(self.cracker.load_cache('empty'), {})
 
     def test_append_to_cache(self):
-        self.cracker.append_to_cache('1', '2')
-        self.assertEqual(self.cracker.load_cache(), {'1': '2'})
+        self.cracker.append_to_cache('1', '2', 'testcache')
+        self.assertEqual(self.cracker.load_cache('testcache'), {'1': '2'})
         
     def test_dictionary_attack_known_hash(self):
         self.assertEqual(pybozocrack.dictionary_attack(self.hash, ['zebra', '123', self.plaintext]), self.plaintext)
