@@ -23,7 +23,7 @@ class TestPybozocrack(unittest.TestCase):
         file.write('fcf1eed8596699624167416a1e7e122e\nbed128365216c019988915ed3add75fb')
         file.close()
 
-        self.cracker = BozoCrack('test')
+        self.cracker = pybozocrack.BozoCrack('test')
 
 
     def test_loaded_hashes(self):
