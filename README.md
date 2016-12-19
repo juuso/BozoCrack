@@ -32,3 +32,8 @@ BozoCrack was written by [Juuso Salonen](http://twitter.com/juusosalonen), the g
 
 ## License
 Do whatever you wish. Public domain, yadda yadda.
+
+## This should've been in here already:
+    $ echo -n 'your password sucks'|md5sum
+    a978bdeddcb1dc882517ffeac2dba052  -
+
